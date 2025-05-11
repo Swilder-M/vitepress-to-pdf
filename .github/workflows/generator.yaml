@@ -39,10 +39,12 @@ jobs:
 
       - name: Install wkhtmltox
         run: |
-          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
-          sudo apt install ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+          curl -sL -o wkhtmltox_0.12.6.1-3.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+          sudo apt install ./wkhtmltox_0.12.6.1-3.deb
 
       - name: Generate PDF
+        env:
+          PYTHONUNBUFFERED: 1
         run: | 
           pipenv run python main.py \
             --product ${{ inputs.product }} \
