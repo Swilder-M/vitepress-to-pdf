@@ -1,0 +1,50 @@
+name: Generate PDF For Vitepress
+
+on:
+  workflow_dispatch:
+    inputs:
+      product:
+        required: true
+        type: string
+        description: 'Product name'
+      version:
+        required: true
+        type: string
+        description: 'Product version'
+      lang:
+        required: true
+        type: string
+        description: 'Language'
+
+jobs:
+  generate-pdf:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: 'pipenv'
+
+      - name: Install pipenv
+        run: |
+          pip install pipenv
+          pipenv --version
+
+      - name: Install dependencies
+        run: pipenv install
+
+      - name: Install wkhtmltox
+        run: |
+          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+          sudo apt install ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+
+      - name: Generate PDF
+        run: | 
+          pipenv run python main.py \
+            --product ${{ inputs.product }} \
+            --version ${{ inputs.version }} \
+            --lang ${{ inputs.lang }}

@@ -1,0 +1,8 @@
+.aside,
+.VPLocalNav,
+.reached-top,
+.VPNav,
+.VPSidebar,
+.VPDocFooter {
+  display: none;
+}
