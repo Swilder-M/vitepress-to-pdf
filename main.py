@@ -6,6 +6,7 @@ from utils import get_children_url, get_site_config
 
 
 def get_urls_from_config(directory_url, base_url, lang):
+    print(f'Getting urls from {directory_url}')
     directory_config = requests.get(directory_url).json()
     if lang == 'zh':
         directory_config = directory_config['cn']

@@ -6,7 +6,7 @@ def get_site_config(site_name, lang, version):
     config_dict = {
         'emqx': {
             'name': 'EMQX',
-            'directory_url': 'https://assets.emqx.com/data/json/ce-{version}.json',
+            'directory_url': f'https://assets.emqx.com/data/json/ce-{version}.json',
             'base_url': f'https://docs.emqx.com/{lang}/emqx/v{version}/'
         },
         'enterprise': {
