@@ -6,15 +6,15 @@ on:
       product:
         required: true
         type: string
-        description: 'Product name'
+        description: "Product name"
       version:
         required: true
         type: string
-        description: 'Product version'
+        description: "Product version"
       lang:
         required: true
         type: string
-        description: 'Language'
+        description: "Language"
 
 jobs:
   generate-pdf:
@@ -26,8 +26,8 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
-          cache: 'pipenv'
+          python-version: "3.8"
+          cache: "pipenv"
 
       - name: Install pipenv
         run: |
@@ -53,7 +53,7 @@ jobs:
       - name: Generate PDF
         env:
           PYTHONUNBUFFERED: 1
-        run: | 
+        run: |
           pipenv run python main.py \
             --product ${{ inputs.product }} \
             --version ${{ inputs.version }} \
