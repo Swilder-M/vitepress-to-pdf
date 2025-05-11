@@ -50,3 +50,9 @@ jobs:
             --product ${{ inputs.product }} \
             --version ${{ inputs.version }} \
             --lang ${{ inputs.lang }}
+
+      - name: Upload pdf
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.product }}-${{ inputs.version }}-${{ inputs.lang }}.pdf
+          path: ./*.pdf
