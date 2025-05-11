@@ -42,9 +42,13 @@ jobs:
           curl -sL -o wkhtmltox_0.12.6.1-3.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
           sudo apt install ./wkhtmltox_0.12.6.1-3.deb
 
-      - name: Fix chinese font
+      - name: Install Chinese fonts
         run: |
-          sudo apt-get install fonts-chinese -y
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra fonts-wqy-microhei fonts-wqy-zenhei \
+            fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback \
+            xfonts-wqy language-pack-zh* fontconfig
+          sudo fc-cache -fv
 
       - name: Generate PDF
         env:
