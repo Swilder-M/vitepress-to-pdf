@@ -6,12 +6,12 @@ def get_site_config(site_name, lang, version):
     config_dict = {
         'emqx': {
             'name': 'EMQX',
-            'directory_url': 'https://docs.emqx.com/api/emqx_directory.json',
+            'directory_url': 'https://docs.emqx.com/api/emqx_v{version}_directory.json',
             'base_url': f'https://docs.emqx.com/{lang}/emqx/v{version}/'
         },
         'enterprise': {
             'name': 'EMQX Enterprise',
-            'directory_url': 'https://docs.emqx.com/api/emqx_directory.json',
+            'directory_url': 'https://docs.emqx.com/api/emqx_v{version}_directory.json',
             'base_url': f'https://docs.emqx.com/{lang}/enterprise/v{version}/'
         },
         'ekuiper': {
