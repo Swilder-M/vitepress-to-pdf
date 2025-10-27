@@ -43,7 +43,12 @@ def get_site_config(site_name, lang, version):
             'name': 'EMQX ECP',
             'directory_url': 'https://raw.githubusercontent.com/emqx/emqx-ecp-docs/refs/heads/main/ecp/directory.json',
             'base_url': f'https://docs.emqx.com/{lang}/emqx-ecp/latest/'
-        } 
+        },
+        'datalayers': {
+            'name': 'DataLayers',
+            'directory_url': 'https://raw.githubusercontent.com/Swilder-M/vitepress-to-pdf/refs/heads/master/dist/datalayers.json',
+            'base_url': 'https://docs.datalayers.cn/datalayers/latest/'
+        }
     }
 
     if site_name not in config_dict:

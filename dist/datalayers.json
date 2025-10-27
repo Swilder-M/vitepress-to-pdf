@@ -1,0 +1,1044 @@
+{
+  "en": [
+    {
+      "title": "Overview",
+      "path": "./"
+    },
+    {
+      "title": "Getting Started",
+      "collapsed": false,
+      "children": [
+        {
+          "title": "Installation",
+          "children": [
+            {
+              "title": "Docker",
+              "path": "getting-started/docker"
+            },
+            {
+              "title": "Ubuntu",
+              "path": "getting-started/ubuntu"
+            },
+            {
+              "title": "Centos",
+              "path": "getting-started/centos"
+            }
+          ]
+        },
+        {
+          "title": "Command-line tool",
+          "path": "getting-started/command-line-tool"
+        }
+      ]
+    },
+    {
+      "title": "Development Guide",
+      "collapsed": false,
+      "children": [
+        {
+          "title": "Concepts",
+          "path": "development-guide/concepts"
+        },
+        {
+          "title": "Database Connection",
+          "path": "development-guide/connection",
+          "children": [
+            {
+              "title": "Arrow Flight SQL",
+              "path": "development-guide/arrow-flight-sql"
+            },
+            {
+              "title": "REST API",
+              "collapsed": true,
+              "children": [
+                {
+                  "title": "Authentication",
+                  "path": "development-guide/auth-with-restapi"
+                },
+                {
+                  "title": "Insert",
+                  "path": "development-guide/insert-with-restapi"
+                },
+                {
+                  "title": "Query",
+                  "path": "development-guide/query-with-restapi"
+                },
+                {
+                  "title": "ERROR CODE",
+                  "path": "development-guide/errno-with-restapi"
+                },
+                {
+                  "title": "Multi-language Access Examples",
+                  "path": "development-guide/multi-language-examples"
+                }
+              ]
+            },
+            {
+              "title": "InfluxDB Line Protocol",
+              "path": "development-guide/writing-with-influxdb-line-protocol"
+            }
+          ]
+        },
+        {
+          "title": "Table design best practices",
+          "path": "development-guide/table-design/overview",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Overview",
+              "path": "development-guide/table-design/overview"
+            },
+            {
+              "title": "Time-Series Table Design",
+              "path": "development-guide/table-design/timeseries-table-design"
+            }
+          ]
+        },
+        {
+          "title": "High-performance writing",
+          "path": "development-guide/high-performance-writing"
+        },
+        {
+          "title": "Query Performance Tuning",
+          "path": "development-guide/query-performance-tuning-overview",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Index Cache",
+              "path": "development-guide/query-optimization/index-cache-optimization"
+            },
+            {
+              "title": "Data Cache",
+              "path": "development-guide/query-optimization/hybrid-cache-optimization"
+            },
+            {
+              "title": "Last Cache",
+              "path": "development-guide/query-optimization/last-cache-optimization"
+            },
+            {
+              "title": "SQL Hints",
+              "path": "development-guide/query-optimization/hints/overview",
+              "collapsed": true,
+              "children": [
+                {
+                  "title": "Query Parallelism Control",
+                  "path": "development-guide/query-optimization/hints/parallel-degree"
+                },
+                {
+                  "title": "Index Hints",
+                  "path": "development-guide/query-optimization/hints/index"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Downsampling",
+          "path": "development-guide/downsampling"
+        },
+        {
+          "title": "Object Storage",
+          "path": "development-guide/object-storage"
+        }
+      ]
+    },
+    {
+      "title": "SQL Reference",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "Data Type",
+          "path": "sql-reference/data-type"
+        },
+        {
+          "title": "operator",
+          "path": "sql-reference/operators"
+        },
+        {
+          "title": "Table Engine",
+          "path": "sql-reference/table-engine",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Time-Series Engine",
+              "path": "sql-reference/table-engine/timeseries"
+            },
+            {
+              "title": "key-Value Engine",
+              "path": "sql-reference/table-engine/kv"
+            },
+            {
+              "title": "Streaming Engine",
+              "path": "sql-reference/table-engine/streaming"
+            },
+            {
+              "title": "Log Engine",
+              "path": "sql-reference/table-engine/log"
+            }
+          ]
+        },
+        {
+          "title": "SQL STATEMENTS",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "CREATE",
+              "path": "sql-reference/statements/create"
+            },
+            {
+              "title": "INSERT",
+              "path": "sql-reference/statements/insert"
+            },
+            {
+              "title": "SELECT",
+              "path": "sql-reference/statements/select",
+              "collapsed": false,
+              "children": [
+                {
+                  "title": "WHERE",
+                  "path": "sql-reference/statements/where"
+                },
+                {
+                  "title": "LIMIT",
+                  "path": "sql-reference/statements/limit"
+                },
+                {
+                  "title": "GROUP BY",
+                  "path": "sql-reference/statements/group-by"
+                },
+                {
+                  "title": "ORDER BY",
+                  "path": "sql-reference/statements/order-by"
+                },
+                {
+                  "title": "DISTINCT",
+                  "path": "sql-reference/statements/distinct"
+                },
+                {
+                  "title": "HAVING",
+                  "path": "sql-reference/statements/having"
+                },
+                {
+                  "title": "CASE",
+                  "path": "sql-reference/statements/case"
+                },
+                {
+                  "title": "CTE",
+                  "path": "sql-reference/statements/cte"
+                },
+                {
+                  "title": "EXISTS",
+                  "path": "sql-reference/statements/exists"
+                },
+                {
+                  "title": "JOIN",
+                  "path": "sql-reference/statements/join"
+                },
+                {
+                  "title": "PIVOT",
+                  "path": "sql-reference/statements/pivot"
+                },
+                {
+                  "title": "SUBQUERY",
+                  "path": "sql-reference/statements/subquery"
+                },
+                {
+                  "title": "UNION",
+                  "path": "sql-reference/statements/union"
+                },
+                {
+                  "title": "WINDOW FUNCTION",
+                  "path": "sql-reference/statements/window-function"
+                },
+                {
+                  "title": "WITHIN GROUP",
+                  "path": "sql-reference/statements/within-group"
+                }
+              ]
+            },
+            {
+              "title": "ALTER",
+              "path": "sql-reference/statements/alter"
+            },
+            {
+              "title": "USE",
+              "path": "sql-reference/statements/use"
+            },
+            {
+              "title": "SHOW",
+              "path": "sql-reference/statements/show"
+            },
+            {
+              "title": "DESC",
+              "path": "sql-reference/statements/desc"
+            },
+            {
+              "title": "DROP",
+              "path": "sql-reference/statements/drop"
+            },
+            {
+              "title": "EXPLAIN",
+              "path": "sql-reference/statements/explain"
+            },
+            {
+              "title": "TRIM",
+              "path": "sql-reference/statements/trim"
+            },
+            {
+              "title": "TRUNCATE",
+              "path": "sql-reference/statements/truncate"
+            },
+            {
+              "title": "FLUSH",
+              "path": "sql-reference/statements/flush"
+            },
+            {
+              "title": "COMPACT",
+              "path": "sql-reference/statements/compact"
+            },
+            {
+              "title": "EXCLUDE",
+              "path": "sql-reference/statements/exclude"
+            },
+            {
+              "title": "INCLUDE",
+              "path": "sql-reference/statements/include"
+            },
+            {
+              "title": "REBALANCE",
+              "path": "sql-reference/statements/rebalance"
+            }
+          ]
+        },
+        {
+          "title": "Functions",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Aggregation",
+              "path": "sql-reference/aggregation"
+            },
+            {
+              "title": "Date",
+              "path": "sql-reference/date"
+            },
+            {
+              "title": "Math",
+              "path": "sql-reference/math"
+            },
+            {
+              "title": "Gap Fill",
+              "path": "sql-reference/gap_fill"
+            },
+            {
+              "title": "Json",
+              "path": "sql-reference/json"
+            },
+            {
+              "title": "Cast",
+              "path": "sql-reference/cast"
+            },
+            {
+              "title": "Streaming Window Functions",
+              "path": "sql-reference/streaming-window"
+            },
+            {
+              "title": "Vector Functions",
+              "path": "sql-reference/vector-functions"
+            }
+          ]
+        },
+        {
+          "title": "INFORMATION_SCHEMA",
+          "path": "sql-reference/information-schema"
+        },
+        {
+          "title": "Configure column codec",
+          "path": "sql-reference/column-codec"
+        }
+      ]
+    },
+    {
+      "title": "Vector Search",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "Vector Search Overview",
+          "path": "vector-search/overview"
+        },
+        {
+          "title": "Quick Start",
+          "path": "vector-search/quick-start"
+        }
+      ]
+    },
+    {
+      "title": "Key Value Data Model",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "Overview",
+          "path": "key-value-data-model/overview"
+        },
+        {
+          "title": "Quick Start",
+          "path": "key-value-data-model/quick-start"
+        },
+        {
+          "title": "Redis Compatibility",
+          "path": "key-value-data-model/redis-compatibility"
+        }
+      ]
+    },
+    {
+      "title": "Operation Guide",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "Performance and Tuning",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Performance Tuning (Linux)",
+              "path": "admin/system-tune"
+            },
+            {
+              "title": "Optimize configuration",
+              "path": "admin/optimize-configuration"
+            }
+          ]
+        },
+        {
+          "title": "Datalayers configuration",
+          "path": "admin/datalayers-configuration",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Server Configuration",
+              "path": "admin/configuration-fields/server"
+            },
+            {
+              "title": "Time Series Engine Configuration",
+              "path": "admin/configuration-fields/ts-engine"
+            },
+            {
+              "title": "Storage Configuration",
+              "path": "admin/configuration-fields/storage"
+            },
+            {
+              "title": "Cluster Configuration",
+              "path": "admin/configuration-fields/node"
+            },
+            {
+              "title": "Scheduler Configuration",
+              "path": "admin/configuration-fields/scheduler"
+            },
+            {
+              "title": "Runtime Configuration",
+              "path": "admin/configuration-fields/runtime"
+            },
+            {
+              "title": "Log Configuration",
+              "path": "admin/configuration-fields/log"
+            },
+            {
+              "title": "License Configuration",
+              "path": "admin/configuration-fields/license"
+            }
+          ]
+        },
+        {
+          "title": "Command Line Interface",
+          "path": "admin/datalayers-cli"
+        },
+        {
+          "title": "Backup and Restore",
+          "path": "admin/backup-restore"
+        },
+        {
+          "title": "Statistics and Metrics",
+          "collapsed": false,
+          "children": [
+            {
+              "title": "Metrics",
+              "path": "admin/system-metrics"
+            },
+            {
+              "title": "Monitor",
+              "path": "admin/system-monitor-grafana"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Integration",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "EMQX",
+          "path": "integration/datalayers-with-emqx"
+        },
+        {
+          "title": "Grafana",
+          "path": "integration/datalayers-with-grafana"
+        },
+        {
+          "title": "OpenTelemetry",
+          "path": "integration/datalayers-with-opentelemetry"
+        }
+      ]
+    },
+    {
+      "title": "Tools",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "DBeaver",
+          "path": "integration/datalayers-with-dbeaver"
+        }
+      ]
+    },
+    {
+      "title": "User & Security",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "TLS",
+          "path": "user-security/tls"
+        }
+      ]
+    },
+    {
+      "title": "Release Notes",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "Releases",
+          "path": "releases/changes"
+        }
+      ]
+    }
+  ],
+  "cn": [
+    {
+      "title": "概述",
+      "path": "./"
+    },
+    {
+      "title": "快速开始",
+      "collapsed": false,
+      "children": [
+        {
+          "title": "安装部署",
+          "children": [
+            {
+              "title": "Docker",
+              "path": "getting-started/docker"
+            },
+            {
+              "title": "Ubuntu",
+              "path": "getting-started/ubuntu"
+            },
+            {
+              "title": "Centos",
+              "path": "getting-started/centos"
+            }
+          ]
+        },
+        {
+          "title": "命令行工具",
+          "path": "getting-started/command-line-tool"
+        }
+      ]
+    },
+    {
+      "title": "最佳实践（开发指南）",
+      "collapsed": false,
+      "children": [
+        {
+          "title": "概念",
+          "path": "development-guide/concepts"
+        },
+        {
+          "title": "数据库连接",
+          "path": "development-guide/connection",
+          "children": [
+            {
+              "title": "Arrow Flight SQL",
+              "path": "development-guide/arrow-flight-sql"
+            },
+            {
+              "title": "REST API",
+              "collapsed": true,
+              "children": [
+                {
+                  "title": "认证",
+                  "path": "development-guide/auth-with-restapi"
+                },
+                {
+                  "title": "数据写入",
+                  "path": "development-guide/insert-with-restapi"
+                },
+                {
+                  "title": "数据查询",
+                  "path": "development-guide/query-with-restapi"
+                },
+                {
+                  "title": "错误码说明",
+                  "path": "development-guide/errno-with-restapi"
+                },
+                {
+                  "title": "多语言接入示例",
+                  "path": "development-guide/multi-language-examples"
+                }
+              ]
+            },
+            {
+              "title": "InfluxDB Line Protocol",
+              "path": "development-guide/writing-with-influxdb-line-protocol"
+            }
+          ]
+        },
+        {
+          "title": "数据表设计",
+          "path": "development-guide/table-design/overview",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "概述",
+              "path": "development-guide/table-design/overview"
+            },
+            {
+              "title": "时序表模型",
+              "path": "development-guide/table-design/timeseries-table-design"
+            }
+          ]
+        },
+        {
+          "title": "高性能写入",
+          "path": "development-guide/high-performance-writing"
+        },
+        {
+          "title": "查询加速",
+          "path": "development-guide/query-performance-tuning-overview",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "索引缓存",
+              "path": "development-guide/query-optimization/index-cache-optimization"
+            },
+            {
+              "title": "热点数据缓存",
+              "path": "development-guide/query-optimization/hybrid-cache-optimization"
+            },
+            {
+              "title": "Last Cache",
+              "path": "development-guide/query-optimization/last-cache-optimization"
+            },
+            {
+              "title": "SQL Hints",
+              "path": "development-guide/query-optimization/hints/overview",
+              "collapsed": true,
+              "children": [
+                {
+                  "title": "查询并行度控制",
+                  "path": "development-guide/query-optimization/hints/parallel-degree"
+                },
+                {
+                  "title": "Index Hints",
+                  "path": "development-guide/query-optimization/hints/index"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "时间窗口查询",
+          "path": "development-guide/downsampling"
+        },
+        {
+          "title": "对象存储",
+          "path": "development-guide/object-storage"
+        }
+      ]
+    },
+    {
+      "title": "SQL 参考",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "数据类型",
+          "path": "sql-reference/data-type"
+        },
+        {
+          "title": "运算符",
+          "path": "sql-reference/operators"
+        },
+        {
+          "title": "表引擎",
+          "path": "sql-reference/table-engine",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "时序引擎",
+              "path": "sql-reference/table-engine/timeseries"
+            },
+            {
+              "title": "Key-Value引擎",
+              "path": "sql-reference/table-engine/kv"
+            },
+            {
+              "title": "流引擎",
+              "path": "sql-reference/table-engine/streaming"
+            },
+            {
+              "title": "日志引擎",
+              "path": "sql-reference/table-engine/log"
+            }
+          ]
+        },
+        {
+          "title": "SQL 语句",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "CREATE",
+              "path": "sql-reference/statements/create"
+            },
+            {
+              "title": "INSERT",
+              "path": "sql-reference/statements/insert"
+            },
+            {
+              "title": "SELECT",
+              "path": "sql-reference/statements/select",
+              "collapsed": false,
+              "children": [
+                {
+                  "title": "WHERE",
+                  "path": "sql-reference/statements/where"
+                },
+                {
+                  "title": "LIMIT",
+                  "path": "sql-reference/statements/limit"
+                },
+                {
+                  "title": "GROUP BY",
+                  "path": "sql-reference/statements/group-by"
+                },
+                {
+                  "title": "ORDER BY",
+                  "path": "sql-reference/statements/order-by"
+                },
+                {
+                  "title": "DISTINCT",
+                  "path": "sql-reference/statements/distinct"
+                },
+                {
+                  "title": "HAVING",
+                  "path": "sql-reference/statements/having"
+                },
+                {
+                  "title": "CASE",
+                  "path": "sql-reference/statements/case"
+                },
+                {
+                  "title": "CTE",
+                  "path": "sql-reference/statements/cte"
+                },
+                {
+                  "title": "EXISTS",
+                  "path": "sql-reference/statements/exists"
+                },
+                {
+                  "title": "JOIN",
+                  "path": "sql-reference/statements/join"
+                },
+                {
+                  "title": "PIVOT",
+                  "path": "sql-reference/statements/pivot"
+                },
+                {
+                  "title": "SUBQUERY",
+                  "path": "sql-reference/statements/subquery"
+                },
+                {
+                  "title": "UNION",
+                  "path": "sql-reference/statements/union"
+                },
+                {
+                  "title": "WINDOW FUNCTION",
+                  "path": "sql-reference/statements/window-function"
+                },
+                {
+                  "title": "WITHIN GROUP",
+                  "path": "sql-reference/statements/within-group"
+                }
+              ]
+            },
+            {
+              "title": "ALTER",
+              "path": "sql-reference/statements/alter"
+            },
+            {
+              "title": "USE",
+              "path": "sql-reference/statements/use"
+            },
+            {
+              "title": "SHOW",
+              "path": "sql-reference/statements/show"
+            },
+            {
+              "title": "DESC",
+              "path": "sql-reference/statements/desc"
+            },
+            {
+              "title": "DROP",
+              "path": "sql-reference/statements/drop"
+            },
+            {
+              "title": "EXPLAIN",
+              "path": "sql-reference/statements/explain"
+            },
+            {
+              "title": "TRIM",
+              "path": "sql-reference/statements/trim"
+            },
+            {
+              "title": "TRUNCATE",
+              "path": "sql-reference/statements/truncate"
+            },
+            {
+              "title": "FLUSH",
+              "path": "sql-reference/statements/flush"
+            },
+            {
+              "title": "COMPACT",
+              "path": "sql-reference/statements/compact"
+            },
+            {
+              "title": "EXCLUDE",
+              "path": "sql-reference/statements/exclude"
+            },
+            {
+              "title": "INCLUDE",
+              "path": "sql-reference/statements/include"
+            },
+            {
+              "title": "REBALANCE",
+              "path": "sql-reference/statements/rebalance"
+            }
+          ]
+        },
+        {
+          "title": "函数",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "聚合函数",
+              "path": "sql-reference/aggregation"
+            },
+            {
+              "title": "时间与日期函数",
+              "path": "sql-reference/date"
+            },
+            {
+              "title": "数学函数",
+              "path": "sql-reference/math"
+            },
+            {
+              "title": "插值函数",
+              "path": "sql-reference/gap_fill"
+            },
+            {
+              "title": "Json 函数",
+              "path": "sql-reference/json"
+            },
+            {
+              "title": "类型转换函数",
+              "path": "sql-reference/cast"
+            },
+            {
+              "title": "流式窗口函数",
+              "path": "sql-reference/streaming-window"
+            },
+            {
+              "title": "向量函数",
+              "path": "sql-reference/vector-functions"
+            }
+          ]
+        },
+        {
+          "title": "INFORMATION_SCHEMA",
+          "path": "sql-reference/information-schema"
+        },
+        {
+          "title": "列编码与压缩算法",
+          "path": "sql-reference/column-codec"
+        }
+      ]
+    },
+    {
+      "title": "向量检索",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "概述",
+          "path": "vector-search/overview"
+        },
+        {
+          "title": "快速开始",
+          "path": "vector-search/quick-start"
+        }
+      ]
+    },
+    {
+      "title": "Key-Value 存储",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "概述",
+          "path": "key-value-data-model/overview"
+        },
+        {
+          "title": "快速开始",
+          "path": "key-value-data-model/quick-start"
+        },
+        {
+          "title": "Redis 兼容性",
+          "path": "key-value-data-model/redis-compatibility"
+        }
+      ]
+    },
+    {
+      "title": "运维指南",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "性能与调优",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "操作系统优化",
+              "path": "admin/system-tune"
+            },
+            {
+              "title": "优化配置",
+              "path": "admin/optimize-configuration"
+            }
+          ]
+        },
+        {
+          "title": "配置手册",
+          "path": "admin/datalayers-configuration",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "Server 配置",
+              "path": "admin/configuration-fields/server"
+            },
+            {
+              "title": "时序引擎配置",
+              "path": "admin/configuration-fields/ts-engine"
+            },
+            {
+              "title": "存储配置",
+              "path": "admin/configuration-fields/storage"
+            },
+            {
+              "title": "集群配置",
+              "path": "admin/configuration-fields/node"
+            },
+            {
+              "title": "调度器配置",
+              "path": "admin/configuration-fields/scheduler"
+            },
+            {
+              "title": "Runtime 配置",
+              "path": "admin/configuration-fields/runtime"
+            },
+            {
+              "title": "日志配置",
+              "path": "admin/configuration-fields/log"
+            },
+            {
+              "title": "License 配置",
+              "path": "admin/configuration-fields/license"
+            }
+          ]
+        },
+        {
+          "title": "命令行接口",
+          "path": "admin/datalayers-cli"
+        },
+        {
+          "title": "备份与恢复",
+          "path": "admin/backup-restore"
+        },
+        {
+          "title": "可观测性",
+          "collapsed": false,
+          "children": [
+            {
+              "title": "指标",
+              "path": "admin/system-metrics"
+            },
+            {
+              "title": "系统监控",
+              "path": "admin/system-monitor-grafana"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "应用集成",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "EMQX",
+          "path": "integration/datalayers-with-emqx"
+        },
+        {
+          "title": "Grafana",
+          "path": "integration/datalayers-with-grafana"
+        },
+        {
+          "title": "OpenTelemetry",
+          "path": "integration/datalayers-with-opentelemetry"
+        }
+      ]
+    },
+    {
+      "title": "管理工具",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "DBeaver",
+          "path": "integration/datalayers-with-dbeaver"
+        }
+      ]
+    },
+    {
+      "title": "用户与安全",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "连接加密(TLS)",
+          "path": "user-security/tls"
+        }
+      ]
+    },
+    {
+      "title": "版本发布说明",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "版本发布",
+          "path": "releases/changes"
+        }
+      ]
+    }
+  ]
+}
