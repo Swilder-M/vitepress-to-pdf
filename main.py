@@ -65,7 +65,7 @@ def gen_pdf(product, version, lang='zh'):
     toc = {
         'xsl-style-sheet': 'vitepress-assets/toc.xsl'
     }
-    cover = f'https://doc-cover.iotworker.com/?product={product_name}'
+    cover = f'https://doc-cover.codm.ing/?product={product_name}'
 
     kit = pdfkit.PDFKit(urls, 'url', options=options, verbose=True,
              toc=toc, cover=cover, cover_first=True)
