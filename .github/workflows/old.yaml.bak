@@ -10,11 +10,11 @@ on:
       version:
         required: true
         type: string
-        description: "Product version: vx.y or latest"
+        description: "Product version"
       lang:
         required: true
         type: string
-        description: "Language: zh en"
+        description: "Language"
 
 jobs:
   generate-pdf:
@@ -23,13 +23,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Install python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.8"
+          cache: "pipenv"
+
+      - name: Install pipenv
+        run: |
+          pip install pipenv
+          pipenv --version
 
       - name: Install dependencies
-        run: uv sync
+        run: pipenv install
 
       - name: Install wkhtmltox
         run: |
@@ -48,7 +54,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
         run: |
-          uv run python main.py \
+          pipenv run python main.py \
             --product ${{ inputs.product }} \
             --version ${{ inputs.version }} \
             --lang ${{ inputs.lang }}
