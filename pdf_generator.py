@@ -5,11 +5,19 @@ import tempfile
 
 from playwright.async_api import async_playwright
 from pypdf import PdfReader, PdfWriter
+from pypdf.generic import (
+    ArrayObject,
+    DictionaryObject,
+    NameObject,
+)
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
 CONCURRENCY = 6
 PAGE_TIMEOUT = 30000
+
+HIDE_ELEMENTS_CSS = '#inkeep { display: none !important; }'
+PRINT_CSS = '@media print { .VPDoc .container, .content-container { max-width: 100%; } }'
 
 
 def _read_css(css_path):
@@ -121,6 +129,82 @@ def _stamp_page_numbers(writer, skip_pages=1):
         page.merge_page(overlay)
 
 
+def _add_bookmarks(writer, url_entries, page_counts, content_start_page):
+    """Add PDF outline bookmarks for each content page."""
+    cumulative = content_start_page
+    parent_bookmark = None
+
+    for i, entry in enumerate(url_entries):
+        title = entry['title']
+        level = entry['level']
+
+        if level <= 1:
+            parent_bookmark = writer.add_outline_item(title, cumulative)
+        else:
+            writer.add_outline_item(title, cumulative, parent=parent_bookmark)
+
+        cumulative += page_counts[i]
+
+
+def _rewrite_internal_links(writer, url_to_page_map):
+    """Rewrite URI links that match internal URLs to GoTo page actions."""
+    for page_idx, page in enumerate(writer.pages):
+        if '/Annots' not in page:
+            continue
+        annots = page['/Annots']
+        for annot_ref in annots:
+            annot = annot_ref.get_object()
+            if annot.get('/Subtype') != '/Link':
+                continue
+            action = annot.get('/A')
+            if not action:
+                continue
+            if action.get('/S') != '/URI':
+                continue
+            uri = action.get('/URI', '')
+
+            # Normalize URI for matching
+            target_page = _find_target_page(uri, url_to_page_map)
+            if target_page is not None:
+                # Replace URI action with GoTo action
+                dest = ArrayObject([
+                    writer.pages[target_page].indirect_reference,
+                    NameObject('/Fit'),
+                ])
+                new_action = DictionaryObject({
+                    NameObject('/S'): NameObject('/GoTo'),
+                    NameObject('/D'): dest,
+                })
+                annot[NameObject('/A')] = new_action
+
+
+def _find_target_page(uri, url_to_page_map):
+    """Find the target page index for a URI."""
+    # Try exact match first
+    if uri in url_to_page_map:
+        return url_to_page_map[uri]
+
+    # Strip fragment (#section)
+    base_uri = uri.split('#')[0]
+    if base_uri in url_to_page_map:
+        return url_to_page_map[base_uri]
+
+    # Try with/without trailing slash
+    if base_uri.endswith('/'):
+        alt = base_uri.rstrip('/')
+    else:
+        alt = base_uri + '/'
+    if alt in url_to_page_map:
+        return url_to_page_map[alt]
+
+    # Try .html variant
+    if not base_uri.endswith('.html') and not base_uri.endswith('/'):
+        if base_uri + '.html' in url_to_page_map:
+            return url_to_page_map[base_uri + '.html']
+
+    return None
+
+
 async def _render_page(context, url, css_text, header_html, semaphore, tmp_dir, index):
     """Render a single URL to PDF, return pdf_path."""
     async with semaphore:
@@ -128,9 +212,8 @@ async def _render_page(context, url, css_text, header_html, semaphore, tmp_dir, 
         try:
             await page.goto(url, wait_until='networkidle', timeout=PAGE_TIMEOUT)
             await page.add_style_tag(content=css_text)
-            await page.add_style_tag(
-                content='@media print { .VPDoc .container, .content-container { max-width: 100%; } }'
-            )
+            await page.add_style_tag(content=HIDE_ELEMENTS_CSS)
+            await page.add_style_tag(content=PRINT_CSS)
 
             pdf_path = os.path.join(tmp_dir, f'page_{index:04d}.pdf')
             await page.pdf(
@@ -245,10 +328,12 @@ async def generate_pdf_document(
                 toc_page_offset = cover_pages + toc_pages_estimate
 
                 # Build TOC entries with correct page numbers
+                # Page numbering starts after cover (cover is not counted)
                 toc_entries = []
                 cumulative_page = toc_page_offset
                 for i, entry in enumerate(url_entries):
-                    toc_entries.append((entry['title'], entry['level'], cumulative_page + 1))
+                    page_number = cumulative_page - cover_pages + 1
+                    toc_entries.append((entry['title'], entry['level'], page_number))
                     cumulative_page += page_counts[i]
 
                 toc_html = _build_toc_html(toc_entries)
@@ -270,15 +355,29 @@ async def generate_pdf_document(
             for page in PdfReader(toc_path).pages:
                 writer.add_page(page)
 
+            content_start_page = cover_pages + actual_toc_pages
             for pdf_path in pdf_paths:
                 for page in PdfReader(pdf_path).pages:
                     writer.add_page(page)
 
-            # 6. Stamp page numbers (skip cover)
+            # 6. Add PDF outline bookmarks
+            print('Adding bookmarks...')
+            _add_bookmarks(writer, url_entries, page_counts, content_start_page)
+
+            # 7. Rewrite internal links to GoTo actions
+            print('Rewriting internal links...')
+            url_to_page = {}
+            cumulative = content_start_page
+            for i, entry in enumerate(url_entries):
+                url_to_page[entry['url']] = cumulative
+                cumulative += page_counts[i]
+            _rewrite_internal_links(writer, url_to_page)
+
+            # 8. Stamp page numbers (skip cover)
             print('Stamping page numbers...')
             _stamp_page_numbers(writer, skip_pages=cover_pages)
 
-            # 7. Write output
+            # 9. Write output
             with open(output_path, 'wb') as f:
                 writer.write(f)
 
