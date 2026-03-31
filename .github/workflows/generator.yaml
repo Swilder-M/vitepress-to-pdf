@@ -23,19 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Install python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.8"
-          cache: "pipenv"
-
-      - name: Install pipenv
-        run: |
-          pip install pipenv
-          pipenv --version
+          python-version: '3.12'
 
       - name: Install dependencies
-        run: pipenv install
+        run: uv sync
 
       - name: Install wkhtmltox
         run: |
@@ -54,7 +48,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: 1
         run: |
-          pipenv run python main.py \
+          uv run python main.py \
             --product ${{ inputs.product }} \
             --version ${{ inputs.version }} \
             --lang ${{ inputs.lang }}
