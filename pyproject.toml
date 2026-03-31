@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4>=4.14.3",
-    "pdfkit>=1.0.0",
+    "playwright>=1.49.0",
+    "pypdf>=4.0.0",
+    "reportlab>=4.0.0",
     "requests>=2.33.1",
 ]

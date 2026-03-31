@@ -57,13 +57,22 @@ def get_site_config(site_name, lang, version):
     return config_dict[site_name]
 
 
-def get_children_url(_d):
-    urls = []
-    for _path in _d:
-        if _path.get('path'):
-            if _path['path'].startswith('http://') or _path['path'].startswith('https://'):
+def get_children_url(_d, level=1):
+    """Extract URLs with titles and hierarchy level from directory config.
+
+    Returns list of dicts: {'path': str, 'title': str, 'level': int}
+    """
+    items = []
+    for _item in _d:
+        if _item.get('path'):
+            path = _item['path']
+            if path.startswith('http://') or path.startswith('https://'):
                 continue
-            urls.append(_path['path'])
-        if _path.get('children'):
-            urls.extend(get_children_url(_path['children']))
-    return urls
+            items.append({
+                'path': path,
+                'title': _item.get('title', ''),
+                'level': level,
+            })
+        if _item.get('children'):
+            items.extend(get_children_url(_item['children'], level + 1))
+    return items

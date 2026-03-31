@@ -18,35 +18,27 @@ on:
 
 jobs:
   generate-pdf:
-    runs-on: ubuntu-22.04
-    container:
-      image: debian:buster
+    runs-on: ubuntu-latest
     steps:
-      - name: Install system dependencies
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /etc/apt/sources.list
-          sed -i '/debian-security/d' /etc/apt/sources.list
-          apt-get update
-          apt-get install -y curl git ca-certificates \
-            fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei \
-            fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback \
-            xfonts-wqy fontconfig
-          curl -sL -o wkhtmltox.deb https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
-          apt-get install -y ./wkhtmltox.deb
-          fc-cache -fv
-
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8
         with:
           python-version: '3.12'
 
       - name: Install dependencies
         run: uv sync
+
+      - name: Install Playwright browsers
+        run: uv run playwright install --with-deps chromium
+
+      - name: Install Chinese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra fonts-wqy-microhei fonts-wqy-zenhei
+          sudo fc-cache -fv
 
       - name: Generate PDF
         env:
@@ -58,7 +50,7 @@ jobs:
             --lang ${{ inputs.lang }}
 
       - name: Upload pdf
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ inputs.product }}-${{ inputs.version }}-${{ inputs.lang }}.pdf
           path: ./*.pdf

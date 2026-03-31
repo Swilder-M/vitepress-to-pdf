@@ -1,7 +1,9 @@
 import argparse
-import requests
-import pdfkit
+import asyncio
 
+import requests
+
+from pdf_generator import generate_pdf_document
 from utils import get_children_url, get_site_config
 
 
@@ -13,10 +15,11 @@ def get_urls_from_config(directory_url, base_url, lang):
     else:
         directory_config = directory_config[lang]
 
-    all_path = get_children_url(directory_config)
-    all_urls = []
+    all_items = get_children_url(directory_config)
+    url_entries = []
 
-    for _path in all_path:
+    for item in all_items:
+        _path = item['path']
         if 'release_notes/' in _path:
             continue
         if _path == './':
@@ -25,8 +28,12 @@ def get_urls_from_config(directory_url, base_url, lang):
             if _path.lower().endswith('.md'):
                 _path = ''.join(_path.split('.md')[:-1])
             _full_url = base_url + _path + '.html'
-        all_urls.append(_full_url)
-    return all_urls
+        url_entries.append({
+            'url': _full_url,
+            'title': item['title'],
+            'level': item['level'],
+        })
+    return url_entries
 
 
 def gen_pdf(product, version, lang='zh'):
@@ -35,10 +42,8 @@ def gen_pdf(product, version, lang='zh'):
     directory_url = site_config['directory_url']
     base_url = site_config['base_url']
 
-    urls = get_urls_from_config(directory_url, base_url, lang)
-    print('Urls:')
-    for i in urls:
-        print(i)
+    url_entries = get_urls_from_config(directory_url, base_url, lang)
+    print(f'Total urls: {len(url_entries)}')
 
     version = version.replace('v', '')
     if version == 'latest':
@@ -46,35 +51,16 @@ def gen_pdf(product, version, lang='zh'):
     else:
         version_display = 'V' + version
 
-    options = {
-        'print-media-type': None,
-        'user-style-sheet': 'vitepress-assets/docs.css',
-        'dump-outline': 'vitepress-assets/toc.xml',
-        'enable-local-file-access': None,
-        'javascript-delay': 10000,
-        'header-center': f'{product_name} {version_display} Docs',
-        'header-font-size': 10,
-        'header-spacing': 5,
-        'footer-center': '[page] / [topage]',
-        'footer-font-size': 8,
-        'page-offset': -1,
-        # 'enable-internal-links': None,
-        # 'keep-relative-links': None
-        # 'dump-default-toc-xsl': None
-    }
-    toc = {
-        'xsl-style-sheet': 'vitepress-assets/toc.xsl'
-    }
-    cover = f'https://doc-cover.codm.ing/?product={product_name}'
+    cover_url = f'https://doc-cover.codm.ing/?product={product_name}'
+    output_path = f'{product}-{version}-{lang}.pdf'
 
-    kit = pdfkit.PDFKit(urls, 'url', options=options, verbose=True,
-             toc=toc, cover=cover, cover_first=True)
-    print('Command:')
-    print(' '.join(kit.command()))
-
-    pdfkit.from_url(urls, f'{product}-{version}-{lang}.pdf',
-             options=options, verbose=True,
-             toc=toc, cover=cover, cover_first=True)
+    asyncio.run(generate_pdf_document(
+        url_entries=url_entries,
+        cover_url=cover_url,
+        product_name=product_name,
+        version_display=version_display,
+        output_path=output_path,
+    ))
 
 
 if __name__ == '__main__':
