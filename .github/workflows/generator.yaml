@@ -19,9 +19,24 @@ on:
 jobs:
   generate-pdf:
     runs-on: ubuntu-22.04
+    container:
+      image: ubuntu:20.04
     steps:
+      - name: Install system dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          apt-get update
+          apt-get install -y curl git \
+            fonts-noto-cjk fonts-noto-cjk-extra fonts-wqy-microhei fonts-wqy-zenhei \
+            fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback \
+            xfonts-wqy language-pack-zh* fontconfig
+          curl -sL -o wkhtmltox.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.focal_amd64.deb
+          apt-get install -y ./wkhtmltox.deb
+          fc-cache -fv
+
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -30,19 +45,6 @@ jobs:
 
       - name: Install dependencies
         run: uv sync
-
-      - name: Install wkhtmltox
-        run: |
-          curl -sL -o wkhtmltox_0.12.6.1-3.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
-          sudo apt install ./wkhtmltox_0.12.6.1-3.deb
-
-      - name: Install Chinese fonts
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra fonts-wqy-microhei fonts-wqy-zenhei \
-            fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback \
-            xfonts-wqy language-pack-zh* fontconfig
-          sudo fc-cache -fv
 
       - name: Generate PDF
         env:
