@@ -20,18 +20,18 @@ jobs:
   generate-pdf:
     runs-on: ubuntu-22.04
     container:
-      image: ubuntu:20.04
+      image: debian:buster
     steps:
       - name: Install system dependencies
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           apt-get update
-          apt-get install -y curl git \
-            fonts-noto-cjk fonts-noto-cjk-extra fonts-wqy-microhei fonts-wqy-zenhei \
+          apt-get install -y curl git ca-certificates \
+            fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei \
             fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback \
-            xfonts-wqy language-pack-zh* fontconfig
-          curl -sL -o wkhtmltox.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+            xfonts-wqy fontconfig
+          curl -sL -o wkhtmltox.deb https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
           apt-get install -y ./wkhtmltox.deb
           fc-cache -fv
 
