@@ -13,7 +13,7 @@ from pypdf.generic import (
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
-CONCURRENCY = 6
+CONCURRENCY = 10
 PAGE_TIMEOUT = 30000
 
 HIDE_ELEMENTS_CSS = '#inkeep { display: none !important; }'
