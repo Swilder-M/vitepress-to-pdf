@@ -1,4 +1,5 @@
 name: Generate PDF For Vitepress
+run-name: 'PDF: ${{ inputs.product }} ${{ inputs.version }} (${{ inputs.lang }})'
 
 on:
   workflow_dispatch:

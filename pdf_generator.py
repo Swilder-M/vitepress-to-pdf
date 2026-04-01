@@ -35,15 +35,17 @@ def _build_header_html(title):
 def _build_toc_html(toc_entries):
     """Generate TOC HTML.
 
-    toc_entries: list of (title, level, page_number)
+    toc_entries: list of (title, level, page_number, url)
     """
     items_html = ''
-    for title, level, page_num in toc_entries:
+    for title, level, page_num, url in toc_entries:
         level_class = 'level-1' if level <= 1 else 'level-2'
         items_html += (
             f'<li class="toc-item {level_class}">'
+            f'<a href="{url}" class="toc-link">'
             f'<span class="toc-title"><span class="toc-text">{title}</span></span>'
             f'<span class="toc-page">{page_num}</span>'
+            f'</a>'
             f'</li>\n'
         )
 
@@ -94,6 +96,13 @@ ul {{ list-style: none; }}
     background: #fff;
     text-align: right;
     min-width: 30px;
+}}
+.toc-link {{
+    display: flex;
+    align-items: baseline;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
 }}
 </style>
 </head>
@@ -235,11 +244,44 @@ async def _render_page(context, url, css_text, header_html, semaphore, tmp_dir, 
             await page.close()
 
 
-async def _render_cover(context, cover_url, tmp_dir):
-    """Render cover page to PDF."""
+def _build_cover_html(product_name):
+    return f'''<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body {{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}}
+h1 {{
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}}
+</style>
+</head>
+<body>
+<h1>{product_name} Documentation</h1>
+</body>
+</html>'''
+
+
+async def _render_cover(context, product_name, tmp_dir):
+    """Render cover page to PDF from local HTML."""
+    cover_html = _build_cover_html(product_name)
     page = await context.new_page()
     try:
-        await page.goto(cover_url, wait_until='networkidle', timeout=PAGE_TIMEOUT)
+        await page.set_content(cover_html, wait_until='networkidle')
         pdf_path = os.path.join(tmp_dir, 'cover.pdf')
         await page.pdf(
             path=pdf_path,
@@ -279,7 +321,6 @@ async def _render_toc(context, toc_html, header_html, tmp_dir):
 
 async def generate_pdf_document(
     url_entries,
-    cover_url,
     product_name,
     version_display,
     output_path,
@@ -302,7 +343,7 @@ async def generate_pdf_document(
         with tempfile.TemporaryDirectory() as tmp_dir:
             # 1. Render cover
             print('Rendering cover page...')
-            cover_path = await _render_cover(context, cover_url, tmp_dir)
+            cover_path = await _render_cover(context, product_name, tmp_dir)
 
             # 2. Render all content pages concurrently
             urls = [entry['url'] for entry in url_entries]
@@ -333,7 +374,7 @@ async def generate_pdf_document(
                 cumulative_page = toc_page_offset
                 for i, entry in enumerate(url_entries):
                     page_number = cumulative_page - cover_pages + 1
-                    toc_entries.append((entry['title'], entry['level'], page_number))
+                    toc_entries.append((entry['title'], entry['level'], page_number, entry['url']))
                     cumulative_page += page_counts[i]
 
                 toc_html = _build_toc_html(toc_entries)

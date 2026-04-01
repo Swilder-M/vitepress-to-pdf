@@ -51,12 +51,10 @@ def gen_pdf(product, version, lang='zh'):
     else:
         version_display = 'V' + version
 
-    cover_url = f'https://doc-cover.codm.ing/?product={product_name}'
     output_path = f'{product}-{version}-{lang}.pdf'
 
     asyncio.run(generate_pdf_document(
         url_entries=url_entries,
-        cover_url=cover_url,
         product_name=product_name,
         version_display=version_display,
         output_path=output_path,
